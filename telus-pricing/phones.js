@@ -7,7 +7,13 @@ class Phone {
         this.bringItBack = await page.$("#include_bib");
     }
     async getPhones(page) {
-        return await page.evaluate(() => Array.from(page.$$("span.text")).map((phone) => phone.innerText));
+        return await page.evaluate(() => {
+            let elements = Array.from(document.querySelectorAll('span.text'));
+            let phones = elements.map(element => {
+                return element.innerHTML;
+            });
+            return phones;
+        });
     }
     async searchPhone(page, name) {
         await this.search.click();
