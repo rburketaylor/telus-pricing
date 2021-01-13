@@ -10,18 +10,18 @@ export class Phone {
     }
     
     async getPhones(page): Promise<string[]> {
-        return await page.evaluate(() => {
-            let elements = Array.from(document.querySelectorAll('span.text'));
-            let phones = elements.map(element => {
-                return element.innerHTML;
-            });
-            return phones;
-        });
+        const elements = await page.$$("span.text");
+        let phones = new Array();
+        for (const element of elements) {
+            const phone = await page.evaluate(p => p.innerText, element);
+            phones.push(phone);
+        }
+        return phones;
     }
 
     async searchPhone(page, name: string) {
         await this.search.click();
-        await page.type(name);
+        await this.search.type(name);
         await page.keyboard.press("Enter");
     }
 }

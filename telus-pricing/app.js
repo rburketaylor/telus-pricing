@@ -8,7 +8,7 @@ const phones_1 = require("./phones");
 (async () => {
     try {
         //Go to the Telus calculator website.
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({ headless: false });
         const page = await browser.newPage();
         await page.goto("https://telus.trlcloud.com/toolbox/calculator/index?language_id=1&province=AB&language=en");
         //Add jQuery to site
