@@ -23,5 +23,14 @@ export class Phone {
         await this.search.click();
         await this.search.type(name);
         await page.keyboard.press("Enter");
+
+        const message = await page.$("[class=message]");
+
+        if (message !== "No results found") {
+            return true;
+        }
+        return false;
     }
+
+
 }

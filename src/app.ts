@@ -1,5 +1,5 @@
 const puppeteer = require("puppeteer");
-import { Plan, EasyPayment } from "./plans";
+import { EasyPayment } from "./plans";
 import { Province } from "./provinces";
 import { Customer } from "./customer";
 import { Phone } from "./phones";
