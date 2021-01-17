@@ -6,9 +6,23 @@ class Phone {
         this.search = await page.$("[class='ui fluid search selection dropdown']");
         this.bringItBack = await page.$("#include_bib");
     }
-    async getPhones(page) {
+    async getPhoneData(page, customerType, phone, phones) {
+        await customerType.click();
+        let phoneData = [];
+        for (let i = 0; i < phones.length; i++) {
+            await phone.searchPhone(page, phones[i]);
+            //Get the device retail price
+            const retailPriceElement = await page.$("[class='c_result_height device_price']");
+            const retailPrice = await page.evaluate(p => p.innerText, retailPriceElement);
+            phoneData.push(phones[i] + " " + retailPrice);
+        }
+        return phoneData;
+    }
+    async getPhones(page, customerType) {
+        await customerType.click();
+        await page.waitForTimeout(300);
         const elements = await page.$$("span.text");
-        let phones = new Array();
+        let phones = [];
         for (const element of elements) {
             const phone = await page.evaluate(p => p.innerText, element);
             phones.push(phone);
