@@ -17,6 +17,8 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
+    "@types/clipboardy": "^2.0.1",
+    "clipboardy": "^2.3.0",
     "puppeteer": "^5.5.0"
   }
 }

@@ -7,7 +7,7 @@ import { Phone } from "./phones";
 (async () => {
 
     //Create a new browser & page
-    const browser = await puppeteer.launch({devtools: true});
+    const browser = await puppeteer.launch({headless: false});
     const page = await browser.newPage();
 
     try {
@@ -33,7 +33,9 @@ import { Phone } from "./phones";
 
         //Get phones available for each customer type.
         const phonesConsumer = await phone.getPhones(page, customer.consumer);
+        page.waitForTimeout("300");
         const phonesBusiness = await phone.getPhones(page, customer.smallBusiness);
+        page.waitForTimeout("300");
         const phonesMidMarket = await phone.getPhones(page, customer.midMarket);
 
         //Get pricing data for each phone from each customer type.
@@ -41,7 +43,6 @@ import { Phone } from "./phones";
         let businessPhoneData = await phone.getPhoneData(page, customer.smallBusiness, phone, phonesBusiness);
         let midMarketPhoneData = await phone.getPhoneData(page, customer.midMarket, phone, phonesMidMarket);
 
-        console.log(process.memoryUsage().heapTotal / 1024 / 1024);
         console.timeEnd("exec");
     }
     catch (err) {

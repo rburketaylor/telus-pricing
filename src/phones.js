@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Phone = void 0;
+const clipboard = require("clipboardy");
 class Phone {
     async init(page) {
         this.search = await page.$("[class='ui fluid search selection dropdown']");
@@ -31,13 +32,11 @@ class Phone {
     }
     async searchPhone(page, name) {
         await this.search.click();
-        await this.search.type(name);
+        await clipboard.writeSync(name);
+        await page.keyboard.down("Control");
+        await page.keyboard.press("V");
+        await page.keyboard.up("Control");
         await page.keyboard.press("Enter");
-        const message = await page.$("[class=message]");
-        if (message !== "No results found") {
-            return true;
-        }
-        return false;
     }
 }
 exports.Phone = Phone;

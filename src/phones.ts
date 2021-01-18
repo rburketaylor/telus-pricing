@@ -1,4 +1,4 @@
-
+const clipboard = require("clipboardy");
 
 export class Phone {
     private search;
@@ -39,15 +39,11 @@ export class Phone {
 
     async searchPhone(page, name: string) {
         await this.search.click();
-        await this.search.type(name);
+        await clipboard.writeSync(name);
+        await page.keyboard.down("Control");
+        await page.keyboard.press("V");
+        await page.keyboard.up("Control");
         await page.keyboard.press("Enter");
-
-        const message = await page.$("[class=message]");
-
-        if (message !== "No results found") {
-            return true;
-        }
-        return false;
     }
 
 
