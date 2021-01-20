@@ -7,7 +7,7 @@ import { Phone } from "./phones";
 (async () => {
 
     //Create a new browser & page
-    const browser = await puppeteer.launch({headless: false});
+    const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
     try {
@@ -33,9 +33,7 @@ import { Phone } from "./phones";
 
         //Get phones available for each customer type.
         const phonesConsumer = await phone.getPhones(page, customer.consumer);
-        page.waitForTimeout("300");
         const phonesBusiness = await phone.getPhones(page, customer.smallBusiness);
-        page.waitForTimeout("300");
         const phonesMidMarket = await phone.getPhones(page, customer.midMarket);
 
         //Get pricing data for each phone from each customer type.

@@ -7,7 +7,7 @@ const customer_1 = require("./customer");
 const phones_1 = require("./phones");
 (async () => {
     //Create a new browser & page
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch();
     const page = await browser.newPage();
     try {
         console.time("exec");
@@ -27,9 +27,7 @@ const phones_1 = require("./phones");
         await easyPayment.init(page);
         //Get phones available for each customer type.
         const phonesConsumer = await phone.getPhones(page, customer.consumer);
-        page.waitForTimeout("300");
         const phonesBusiness = await phone.getPhones(page, customer.smallBusiness);
-        page.waitForTimeout("300");
         const phonesMidMarket = await phone.getPhones(page, customer.midMarket);
         //Get pricing data for each phone from each customer type.
         let consumerPhoneData = await phone.getPhoneData(page, customer.consumer, phone, phonesConsumer);

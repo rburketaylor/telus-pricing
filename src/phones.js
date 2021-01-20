@@ -9,15 +9,21 @@ class Phone {
     }
     async getPhoneData(page, customerType, phone, phones) {
         await customerType.click();
-        let phoneData = [];
+        await page.waitForTimeout(300);
+        let phoneDataMapArray = [];
         for (let i = 0; i < phones.length; i++) {
             await phone.searchPhone(page, phones[i]);
+            let phoneDataMap = new Map();
             //Get the device retail price
-            const retailPriceElement = await page.$("[class='c_result_height device_price']");
-            const retailPrice = await page.evaluate(p => p.innerText, retailPriceElement);
-            phoneData.push(phones[i] + " " + retailPrice);
+            phoneDataMap['name'] = phones[i];
+            phoneDataMap['retailPrice'] = page.$('[name=device_price]').value;
+            phoneDataMap['deviceDiscount'] = page.$('[name=device_discount]').value;
+            if (phone.bringItBack.checked) {
+                phoneDataMap['bringItBack'] = page.$('[name=bring_it_back]').value;
+            }
+            phoneDataMapArray.push(phoneDataMap);
         }
-        return phoneData;
+        return phoneDataMapArray;
     }
     async getPhones(page, customerType) {
         await customerType.click();
