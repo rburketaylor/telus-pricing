@@ -2,6 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EasyPayment = exports.Plan = void 0;
 class Plan {
+    id;
+    name;
+    data;
+    price;
     constructor(id, name, data, price) {
         this.id = id;
         this.name = name;
@@ -11,6 +15,11 @@ class Plan {
 }
 exports.Plan = Plan;
 class EasyPayment {
+    zeroUpfront;
+    lowUpfront;
+    lowMonthly;
+    basic;
+    buyOutright;
     async init(page) {
         this.zeroUpfront = await page.$("#zero_upfront");
         this.lowUpfront = await page.$("#low_upfront");

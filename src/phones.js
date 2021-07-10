@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Phone = void 0;
 const clipboard = require("clipboardy");
 class Phone {
+    search;
+    bringItBack;
     async init(page) {
         this.search = await page.$("[class='ui fluid search selection dropdown']");
         this.bringItBack = await page.$("#include_bib");
