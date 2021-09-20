@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "clipboardy": "^2.3.0",
-    "puppeteer": "^5.5.0"
+    "puppeteer": "^5.5.0",
+    "ws": ">=7.4.6"
   }
 }
